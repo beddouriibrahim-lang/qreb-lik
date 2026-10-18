@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#073847">
   <title>Qrib Lik - Services de Proximité au Maroc</title>
   <style>
@@ -37,16 +37,22 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
       background-color: #052630;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
       color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      min-height: 100dvh;
       overflow-x: hidden;
-      overscroll-behavior-y: none;
     }
 
     #app-container {
@@ -76,6 +82,7 @@
       #app-container {
         border-radius: 28px;
         height: 92vh;
+        height: 92dvh;
       }
     }
 
@@ -87,9 +94,9 @@
       height: 100%;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: contain;
-      padding-bottom: calc(75px + var(--safe-bottom));
+      padding-bottom: calc(80px + var(--safe-bottom));
       animation: fadeIn 0.25s ease-out;
+      box-sizing: border-box;
     }
 
     .screen.active {
@@ -97,7 +104,7 @@
     }
 
     .screen.no-nav {
-      padding-bottom: var(--safe-bottom);
+      padding-bottom: calc(20px + var(--safe-bottom));
     }
 
     @keyframes fadeIn {
@@ -117,6 +124,7 @@
       top: 0;
       z-index: 20;
       box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
     }
 
     .logo-text {
@@ -151,15 +159,18 @@
       justify-content: space-around;
       align-items: flex-start;
       padding-top: 8px;
+      padding-bottom: var(--safe-bottom);
       border-top: 1px solid var(--border);
       z-index: 30;
       box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
+      touch-action: manipulation;
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 4px;
       background: none;
       border: none;
@@ -167,15 +178,18 @@
       font-size: 11px;
       font-weight: 500;
       cursor: pointer;
-      touch-action: manipulation;
-      min-height: 48px;
       width: 20%;
+      min-height: 44px;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .nav-item svg {
       width: 22px;
       height: 22px;
       fill: currentColor;
+      pointer-events: none;
     }
 
     .nav-item.active {
@@ -187,9 +201,6 @@
       fill: var(--primary);
     }
 
-    button, a, [onclick], .card { touch-action: manipulation; }
-    button { min-width: 44px; min-height: 44px; }
-    input, textarea, select { touch-action: manipulation; font-size: 16px; }
     /* Typography & Utilities */
     h1, h2, h3, h4 {
       color: var(--text-main);
@@ -198,7 +209,8 @@
 
     .btn {
       width: 100%;
-      padding: 14px;
+      min-height: 46px;
+      padding: 12px 14px;
       border-radius: var(--radius-md);
       border: none;
       font-size: 15px;
@@ -209,6 +221,9 @@
       justify-content: center;
       gap: 8px;
       transition: all 0.2s ease;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .btn:active {
@@ -234,6 +249,12 @@
       background: transparent;
       border: 1.5px solid var(--border);
       color: var(--text-main);
+    }
+
+    .btn-danger {
+      background: #FDEDEC;
+      color: var(--danger);
+      border: 1px solid #FADBD8;
     }
 
     .badge {
@@ -272,13 +293,16 @@
 
     .form-control {
       width: 100%;
-      padding: 12px 14px;
+      min-height: 44px;
+      padding: 10px 14px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
       background: var(--surface);
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-main);
       outline: none;
+      box-sizing: border-box;
+      touch-action: manipulation;
     }
 
     .form-control:focus {
@@ -299,6 +323,7 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
       margin-bottom: 12px;
+      touch-action: manipulation;
     }
 
     /* Modal / Overlay */
@@ -309,8 +334,8 @@
       backdrop-filter: blur(4px);
       z-index: 100;
       display: none;
-      pointer-events: none;
       align-items: flex-end;
+      pointer-events: none;
     }
 
     .modal-overlay.active {
@@ -323,9 +348,13 @@
       width: 100%;
       border-radius: 24px 24px 0 0;
       padding: 20px;
+      padding-bottom: calc(20px + var(--safe-bottom));
       max-height: 85vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       animation: slideUp 0.3s ease-out;
+      box-sizing: border-box;
+      pointer-events: auto;
     }
 
     @keyframes slideUp {
@@ -400,12 +429,13 @@
       fill: var(--text-muted);
       width: 20px;
       height: 20px;
+      pointer-events: none;
     }
 
     /* Toast Notification */
     .toast {
       position: absolute;
-      top: 20px;
+      top: calc(20px + var(--safe-top));
       left: 20px;
       right: 20px;
       background: var(--primary);
@@ -419,8 +449,9 @@
       gap: 10px;
       box-shadow: var(--shadow-lg);
       z-index: 200;
-      transform: translateY(-100px);
+      transform: translateY(-120px);
       transition: transform 0.3s ease;
+      pointer-events: none;
     }
 
     .toast.show {
@@ -444,6 +475,8 @@
       font-weight: 700;
       font-size: 16px;
       flex-shrink: 0;
+      user-select: none;
+      -webkit-user-select: none;
     }
   </style>
 </head>
@@ -471,8 +504,8 @@
       <div style="display: flex; flex-direction: column; gap: 14px;">
         <p style="font-size: 14px; text-align: center; color: var(--secondary-light);">Choisissez votre profil pour commencer :</p>
         
-        <div id="role-client-card" class="card" onclick="selectRole('client')" style="margin:0; cursor:pointer; border: 2px solid transparent; background: rgba(255,255,255,0.08); color: white;">
-          <div style="display:flex; align-items:center; gap: 12px;">
+        <div id="role-client-card" class="card" onclick="selectRole('client')" style="margin:0; cursor:pointer; border: 2px solid var(--secondary); background: rgba(255,255,255,0.08); color: white;">
+          <div style="display:flex; align-items:center; gap: 12px; pointer-events:none;">
             <div class="avatar" style="background: var(--secondary); color: var(--primary);">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             </div>
@@ -484,7 +517,7 @@
         </div>
 
         <div id="role-pro-card" class="card" onclick="selectRole('pro')" style="margin:0; cursor:pointer; border: 2px solid transparent; background: rgba(255,255,255,0.08); color: white;">
-          <div style="display:flex; align-items:center; gap: 12px;">
+          <div style="display:flex; align-items:center; gap: 12px; pointer-events:none;">
             <div class="avatar" style="background: var(--accent); color: white;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-9v2h9V7zm0 4h-9v2h9v-2zm0 4h-9v2h9v-2zM4 6h6v6H4V6zm2 2v2h2V8H6zm-2 6h6v6H4v-6zm2 2v2h2v-2H6z"/></svg>
             </div>
@@ -495,18 +528,18 @@
           </div>
         </div>
 
-        <button class="btn btn-accent" onclick="proceedRole()" style="margin-top: 10px;">Continuer</button>
+        <button type="button" class="btn btn-accent" onclick="proceedRole()" style="margin-top: 10px;">Continuer</button>
       </div>
 
-      <div style="text-align: center;">
-        <a href="#" onclick="showScreen('screen-login')" style="color: var(--secondary); font-size: 13px; text-decoration: none;">Déjà un compte ? Se connecter</a>
+      <div style="text-align: center; padding-bottom: 10px;">
+        <button type="button" onclick="showScreen('screen-login')" style="background:none; border:none; color: var(--secondary); font-size: 13px; text-decoration: none; cursor:pointer; padding:8px; touch-action:manipulation;">Déjà un compte ? Se connecter</button>
       </div>
     </div>
 
     <!-- SCREEN 2: LOGIN -->
     <div id="screen-login" class="screen no-nav" style="padding: 20px;">
-      <div style="margin-top: 20px; margin-bottom: 24px;">
-        <button onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer; color: var(--primary);">
+      <div style="margin-top: 10px; margin-bottom: 24px;">
+        <button type="button" onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer; color: var(--primary); padding: 8px; margin-left:-8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <h2 style="margin-top: 12px;">Connexion</h2>
@@ -515,29 +548,29 @@
 
       <form onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label>Téléphone ou E-mail</label>
+          <label for="login-id">Téléphone ou E-mail</label>
           <input type="text" id="login-id" class="form-control" placeholder="0612345678" required>
         </div>
         <div class="form-group">
-          <label>Mot de passe</label>
+          <label for="login-pass">Mot de passe</label>
           <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
         </div>
         <div style="text-align: right; margin-bottom: 20px;">
-          <a href="#" style="font-size: 12px; color: var(--primary); text-decoration: none;">Mot de passe oublié ?</a>
+          <button type="button" onclick="showToast('Réinitialisation envoyée par SMS')" style="background:none; border:none; font-size: 12px; color: var(--primary); text-decoration: none; cursor:pointer; padding:4px;">Mot de passe oublié ?</button>
         </div>
         <button type="submit" class="btn btn-primary">Se connecter</button>
       </form>
 
       <div style="text-align: center; margin-top: 24px;">
         <p style="font-size: 13px; color: var(--text-muted);">Vous n'avez pas de compte ?</p>
-        <button class="btn btn-outline" onclick="showScreen('screen-welcome')" style="margin-top: 8px;">Créer un compte</button>
+        <button type="button" class="btn btn-outline" onclick="showScreen('screen-welcome')" style="margin-top: 8px;">Créer un compte</button>
       </div>
     </div>
 
     <!-- SCREEN 3: CLIENT REGISTER -->
     <div id="screen-reg-client" class="screen no-nav" style="padding: 20px;">
       <div style="margin-top: 10px; margin-bottom: 20px;">
-        <button onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer; padding:8px; margin-left:-8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <h2>Inscription Client</h2>
@@ -546,16 +579,16 @@
 
       <form onsubmit="handleRegisterClient(event)">
         <div class="form-group">
-          <label>Nom complet *</label>
+          <label for="reg-c-name">Nom complet *</label>
           <input type="text" id="reg-c-name" class="form-control" placeholder="Mona Amrani" required>
         </div>
         <div class="form-group">
-          <label>Numéro de téléphone *</label>
+          <label for="reg-c-phone">Numéro de téléphone *</label>
           <input type="tel" id="reg-c-phone" class="form-control" placeholder="0661234567" required>
         </div>
         <div class="grid-2">
           <div class="form-group">
-            <label>Ville *</label>
+            <label for="reg-c-city">Ville *</label>
             <select id="reg-c-city" class="form-control">
               <option>Casablanca</option>
               <option>Rabat</option>
@@ -565,21 +598,21 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Quartier *</label>
+            <label for="reg-c-district">Quartier *</label>
             <input type="text" id="reg-c-district" class="form-control" placeholder="Maârif" required>
           </div>
         </div>
         <div class="form-group">
-          <label>Numéro CIN *</label>
-          <input type="text" class="form-control" placeholder="AB123456" required>
+          <label for="reg-c-cin">Numéro CIN *</label>
+          <input type="text" id="reg-c-cin" class="form-control" placeholder="AB123456" required>
         </div>
         <div class="form-group">
-          <label>Mot de passe *</label>
+          <label for="reg-c-pass">Mot de passe *</label>
           <input type="password" id="reg-c-pass" class="form-control" required>
         </div>
-        <div style="display: flex; gap: 8px; margin: 12px 0;">
-          <input type="checkbox" id="c-geo" checked>
-          <label for="c-geo" style="font-size: 12px; color: var(--text-muted);">Autoriser la géolocalisation pour des services plus précis.</label>
+        <div style="display: flex; gap: 8px; margin: 12px 0; align-items: center;">
+          <input type="checkbox" id="c-geo" checked style="width:18px; height:18px; touch-action:manipulation;">
+          <label for="c-geo" style="font-size: 12px; color: var(--text-muted); font-weight: normal;">Autoriser la géolocalisation pour des services plus précis.</label>
         </div>
         <button type="submit" class="btn btn-primary">Créer mon compte client</button>
       </form>
@@ -588,7 +621,7 @@
     <!-- SCREEN 4: PRO REGISTER -->
     <div id="screen-reg-pro" class="screen no-nav" style="padding: 20px;">
       <div style="margin-top: 10px; margin-bottom: 20px;">
-        <button onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-welcome')" style="background:none; border:none; cursor:pointer; padding:8px; margin-left:-8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <h2>Inscription Professionnel</h2>
@@ -597,11 +630,11 @@
 
       <form onsubmit="handleRegisterPro(event)">
         <div class="form-group">
-          <label>Nom complet *</label>
+          <label for="reg-p-name">Nom complet *</label>
           <input type="text" id="reg-p-name" class="form-control" placeholder="Youssef El Amrani" required>
         </div>
         <div class="form-group">
-          <label>Métier principal *</label>
+          <label for="reg-p-job">Métier principal *</label>
           <select id="reg-p-job" class="form-control">
             <option>Plomberie</option>
             <option>Électricité</option>
@@ -615,21 +648,21 @@
         </div>
         <div class="grid-2">
           <div class="form-group">
-            <label>Téléphone *</label>
+            <label for="reg-p-phone">Téléphone *</label>
             <input type="tel" id="reg-p-phone" class="form-control" placeholder="0661234567" required>
           </div>
           <div class="form-group">
-            <label>Expérience (ans)</label>
-            <input type="number" class="form-control" value="5">
+            <label for="reg-p-exp">Expérience (ans)</label>
+            <input type="number" id="reg-p-exp" class="form-control" value="5">
           </div>
         </div>
         <div class="form-group">
-          <label>Ville & Zone d'intervention *</label>
-          <input type="text" class="form-control" placeholder="Casablanca et environs" required>
+          <label for="reg-p-zone">Ville & Zone d'intervention *</label>
+          <input type="text" id="reg-p-zone" class="form-control" placeholder="Casablanca et environs" required>
         </div>
         <div class="form-group">
-          <label>Description des services</label>
-          <textarea class="form-control" rows="2" placeholder="Spécialisé dans les installations et dépannages urgents..."></textarea>
+          <label for="reg-p-desc">Description des services</label>
+          <textarea id="reg-p-desc" class="form-control" rows="2" placeholder="Spécialisé dans les installations et dépannages urgents..."></textarea>
         </div>
         <div style="background: var(--secondary-light); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 14px;">
           <p style="font-size: 11px; color: var(--primary); font-weight: 500;">
@@ -651,7 +684,7 @@
           </div>
         </div>
         <div style="display:flex; gap:8px;">
-          <button onclick="showScreen('screen-notifications')" style="background:rgba(255,255,255,0.15); border:none; width:36px; height:36px; border-radius:50%; color:white; position:relative; cursor:pointer;">
+          <button type="button" onclick="showScreen('screen-notifications')" style="background:rgba(255,255,255,0.15); border:none; width:36px; height:36px; border-radius:50%; color:white; position:relative; cursor:pointer; touch-action:manipulation; display:flex; align-items:center; justify-content:center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
             <span id="notif-badge" style="position:absolute; top:6px; right:6px; width:8px; height:8px; background:var(--accent); border-radius:50%;"></span>
           </button>
@@ -673,7 +706,7 @@
               <h3 style="color:white; font-size:15px;">Besoin d'un dépannage urgent ?</h3>
               <p style="font-size:12px; opacity:0.9;">Un artisan chez vous en moins de 30 min.</p>
             </div>
-            <button class="btn btn-primary" onclick="openNewRequest('Urgent')" style="width:auto; padding:8px 12px; font-size:12px; background:var(--primary);">Demande Express</button>
+            <button type="button" class="btn btn-primary" onclick="openNewRequest('Urgent')" style="width:auto; padding:8px 12px; font-size:12px; background:var(--primary);">Demande Express</button>
           </div>
         </div>
 
@@ -692,7 +725,7 @@
         <div style="margin-top: 20px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
             <h4>Professionnels proches</h4>
-            <span style="font-size:12px; color:var(--primary); font-weight:600; cursor:pointer;" onclick="showScreen('screen-search-pros')">Voir tout</span>
+            <span style="font-size:12px; color:var(--primary); font-weight:600; cursor:pointer; touch-action:manipulation; padding:4px;" onclick="showScreen('screen-search-pros')">Voir tout</span>
           </div>
 
           <div id="pros-list-home">
@@ -705,7 +738,7 @@
     <!-- SCREEN: SEARCH PROS LIST -->
     <div id="screen-search-pros" class="screen">
       <div class="app-header">
-        <button onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer; padding:8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <span style="font-weight:700;">Artisans disponibles</span>
@@ -722,7 +755,7 @@
     <!-- SCREEN: CREATE REQUEST FORM -->
     <div id="screen-create-request" class="screen">
       <div class="app-header">
-        <button onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer; padding:8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <span style="font-weight:700;">Nouvelle Demande</span>
@@ -732,38 +765,38 @@
       <div style="padding: 16px;">
         <form onsubmit="handleCreateRequest(event)">
           <div class="form-group">
-            <label>Service requis</label>
+            <label for="req-category">Service requis</label>
             <input type="text" id="req-category" class="form-control" readonly style="background:#eef4f5;">
           </div>
 
           <div class="form-group">
-            <label>Titre de la demande *</label>
+            <label for="req-title">Titre de la demande *</label>
             <input type="text" id="req-title" class="form-control" placeholder="ex: Fuite d'eau sous l'évier" required>
           </div>
 
           <div class="form-group">
-            <label>Description du besoin *</label>
+            <label for="req-desc">Description du besoin *</label>
             <textarea id="req-desc" class="form-control" rows="3" placeholder="Décrivez le problème en quelques mots..." required></textarea>
           </div>
 
           <div class="form-group">
-            <label>Adresse d'intervention *</label>
+            <label for="req-address">Adresse d'intervention *</label>
             <div style="display:flex; gap:8px;">
               <input type="text" id="req-address" class="form-control" value="Boulevard Anfa, Casablanca" required>
-              <button type="button" class="btn btn-secondary" style="width:auto; padding:0 12px;" onclick="useCurrentLocation()">📍</button>
+              <button type="button" class="btn btn-secondary" style="width:auto; padding:0 12px; min-height:44px;" onclick="useCurrentLocation()">📍</button>
             </div>
           </div>
 
           <div class="grid-2">
             <div class="form-group">
-              <label>Urgence</label>
+              <label for="req-urgency">Urgence</label>
               <select id="req-urgency" class="form-control">
                 <option value="Normal">Normale</option>
                 <option value="Urgent">Urgent (Immédiat)</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Paiement souhaité</label>
+              <label for="req-payment">Paiement souhaité</label>
               <select id="req-payment" class="form-control">
                 <option>Espèces</option>
                 <option>Portefeuille Qrib Lik</option>
@@ -815,19 +848,19 @@
           </div>
 
           <div class="grid-2">
-            <button class="btn btn-secondary" onclick="showScreen('screen-chat')">💬 Message</button>
-            <button class="btn btn-outline" onclick="callPro()">📞 Appeler</button>
+            <button type="button" class="btn btn-secondary" onclick="showScreen('screen-chat')">💬 Message</button>
+            <button type="button" class="btn btn-outline" onclick="callPro()">📞 Appeler</button>
           </div>
         </div>
 
-        <button class="btn btn-accent" onclick="completeJobSim()" style="margin-top:10px;">Simuler Prestation Terminée</button>
+        <button type="button" class="btn btn-accent" onclick="completeJobSim()" style="margin-top:10px;">Simuler Prestation Terminée</button>
       </div>
     </div>
 
     <!-- SCREEN: CHAT -->
     <div id="screen-chat" class="screen" style="background:#EBF2F3;">
       <div class="app-header">
-        <button onclick="showScreen('screen-tracking')" style="background:none; border:none; color:white; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-tracking')" style="background:none; border:none; color:white; cursor:pointer; padding:8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <div style="text-align:center;">
@@ -837,13 +870,13 @@
         <div style="width:24px;"></div>
       </div>
 
-      <div id="chat-messages" style="flex:1; padding:16px; display:flex; flex-direction:column; gap:10px; overflow-y:auto;">
+      <div id="chat-messages" style="flex:1; padding:16px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; -webkit-overflow-scrolling:touch;">
         <!-- Chat bubbles -->
       </div>
 
       <div style="padding:10px; background:white; border-top:1px solid var(--border); display:flex; gap:8px;">
         <input type="text" id="chat-input" class="form-control" placeholder="Écrivez votre message..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-        <button class="btn btn-primary" onclick="sendChatMessage()" style="width:auto; padding:0 16px;">Envoyer</button>
+        <button type="button" class="btn btn-primary" onclick="sendChatMessage()" style="width:auto; padding:0 16px;">Envoyer</button>
       </div>
     </div>
 
@@ -903,17 +936,19 @@
         </div>
 
         <div class="card" style="padding:0;">
-          <div style="padding:14px; border-bottom:1px solid var(--border); font-size:14px; cursor:pointer;" onclick="showToast('Paramètres sauvegardés')">⚙️ Paramètres du compte</div>
-          <div style="padding:14px; border-bottom:1px solid var(--border); font-size:14px; cursor:pointer;" onclick="showToast('Support client disponible H24')">🎧 Support Client Qrib Lik</div>
-          <div style="padding:14px; font-size:14px; color:var(--danger); cursor:pointer;" onclick="logout()">🚪 Déconnexion</div>
+          <div style="padding:14px; border-bottom:1px solid var(--border); font-size:14px; cursor:pointer; touch-action:manipulation;" onclick="showToast('Paramètres sauvegardés')">⚙️ Paramètres du compte</div>
+          <div style="padding:14px; border-bottom:1px solid var(--border); font-size:14px; cursor:pointer; touch-action:manipulation;" onclick="showToast('Support client disponible H24')">🎧 Support Client Qrib Lik</div>
+          <div style="padding:14px; font-size:14px; color:var(--danger); cursor:pointer; touch-action:manipulation;" onclick="logout()">🚪 Déconnexion</div>
         </div>
+
+        <button type="button" class="btn btn-danger" onclick="logout()" style="margin-top:16px;">Se déconnecter</button>
       </div>
     </div>
 
     <!-- SCREEN: NOTIFICATIONS -->
     <div id="screen-notifications" class="screen">
       <div class="app-header">
-        <button onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer;">
+        <button type="button" onclick="showScreen('screen-client-home')" style="background:none; border:none; color:white; cursor:pointer; padding:8px; touch-action:manipulation;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </button>
         <span style="font-weight:700;">Notifications</span>
@@ -932,7 +967,7 @@
           <div class="logo-text">QRIB<span>LIK</span> <small style="font-size:10px; background:var(--accent); padding:2px 6px; border-radius:4px; color:white;">PRO</small></div>
           <div style="font-size: 11px; color: var(--secondary-light);" id="pro-dashboard-welcome">Bienvenue, Youssef</div>
         </div>
-        <button onclick="toggleProOnlineStatus()" id="pro-status-btn" class="badge" style="background:var(--success); color:white; border:none; padding:6px 10px; cursor:pointer;">En ligne</button>
+        <button type="button" onclick="toggleProOnlineStatus()" id="pro-status-btn" class="badge" style="background:var(--success); color:white; border:none; padding:6px 10px; cursor:pointer; touch-action:manipulation;">En ligne</button>
       </div>
 
       <div style="padding:16px;">
@@ -947,8 +982,11 @@
           </div>
         </div>
 
-        <h4>Demandes de clients proches</h4>
-        <div id="pro-available-jobs" style="margin-top:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4>Demandes de clients proches</h4>
+          <button type="button" class="btn btn-outline" onclick="logout()" style="width:auto; padding:4px 10px; min-height:32px; font-size:11px; color:var(--danger); border-color:var(--danger);">Déconnexion</button>
+        </div>
+        <div id="pro-available-jobs">
           <!-- Dynamically populated -->
         </div>
       </div>
@@ -956,44 +994,47 @@
 
     <!-- BOTTOM NAV BAR (CLIENT) -->
     <nav class="bottom-nav" id="main-nav">
-      <button class="nav-item active" onclick="navTo('screen-client-home', this)">
+      <button type="button" class="nav-item active" onclick="navTo('screen-client-home', this)">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         Accueil
       </button>
-      <button class="nav-item" onclick="navTo('screen-search-pros', this)">
+      <button type="button" class="nav-item" onclick="navTo('screen-search-pros', this)">
         <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         Artisans
       </button>
-      <button class="nav-item" onclick="navTo('screen-requests', this)">
+      <button type="button" class="nav-item" onclick="navTo('screen-requests', this)">
         <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
         Demandes
       </button>
-      <button class="nav-item" onclick="navTo('screen-wallet', this)">
+      <button type="button" class="nav-item" onclick="navTo('screen-wallet', this)">
         <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
         Solde
       </button>
-      <button class="nav-item" onclick="navTo('screen-profile', this)">
+      <button type="button" class="nav-item" onclick="navTo('screen-profile', this)">
         <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         Profil
       </button>
     </nav>
 
     <!-- RATING MODAL -->
-    <div id="modal-rating" class="modal-overlay">
+    <div id="modal-rating" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal-rating')">
       <div class="modal-content">
         <h3 style="text-align:center;">Évaluer la prestation</h3>
         <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-bottom:16px;">Votre avis aide la communauté Qrib Lik</p>
         
         <div style="display:flex; justify-content:center; gap:8px; margin-bottom:20px;">
-          <span style="font-size:32px; cursor:pointer;" onclick="setRating(1)">⭐</span>
-          <span style="font-size:32px; cursor:pointer;" onclick="setRating(2)">⭐</span>
-          <span style="font-size:32px; cursor:pointer;" onclick="setRating(3)">⭐</span>
-          <span style="font-size:32px; cursor:pointer;" onclick="setRating(4)">⭐</span>
-          <span style="font-size:32px; cursor:pointer;" onclick="setRating(5)">⭐</span>
+          <span style="font-size:32px; cursor:pointer; touch-action:manipulation;" onclick="setRating(1)">⭐</span>
+          <span style="font-size:32px; cursor:pointer; touch-action:manipulation;" onclick="setRating(2)">⭐</span>
+          <span style="font-size:32px; cursor:pointer; touch-action:manipulation;" onclick="setRating(3)">⭐</span>
+          <span style="font-size:32px; cursor:pointer; touch-action:manipulation;" onclick="setRating(4)">⭐</span>
+          <span style="font-size:32px; cursor:pointer; touch-action:manipulation;" onclick="setRating(5)">⭐</span>
         </div>
 
         <textarea class="form-control" rows="3" placeholder="Laissez un commentaire (ex: Travail propre et rapide)..."></textarea>
-        <button class="btn btn-primary" onclick="submitRating()" style="margin-top:12px;">Publier l'évaluation</button>
+        <div class="grid-2" style="margin-top:12px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-rating')">Annuler</button>
+          <button type="button" class="btn btn-primary" onclick="submitRating()">Publier</button>
+        </div>
       </div>
     </div>
 
@@ -1020,25 +1061,27 @@
       { id: 5, name: "Rachid Bennani", job: "Menuisier", rating: 4.9, jobs: 156, dist: "1.9 km", verified: true, avatar: "RB" }
     ];
 
-    function safeReadStorage(key, fallback) {
-      try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : fallback;
-      } catch (error) {
-        return fallback;
-      }
-    }
     let state = {
-      currentUser: safeReadStorage('qrib_user', null),
+      currentUser: null,
       selectedRole: 'client',
       activeScreen: 'screen-welcome',
-      requests: safeReadStorage('qrib_requests', [
-        { id: 101, title: "Remplacement prise murale", category: "Électricite", status: "En cours", pro: "Youssef El Amrani", date: "Aujourd'hui" }
-      ]),
+      requests: [
+        { id: 101, title: "Remplacement prise murale", category: "Électricité", status: "En cours", pro: "Youssef El Amrani", date: "Aujourd'hui" }
+      ],
       chatMessages: [
         { sender: 'pro', text: "Bonjour, je suis en route vers votre domicile." }
       ]
     };
+
+    // Safe LocalStorage Reader
+    try {
+      const storedUser = localStorage.getItem('qrib_user');
+      if (storedUser) state.currentUser = JSON.parse(storedUser);
+      const storedReqs = localStorage.getItem('qrib_requests');
+      if (storedReqs) state.requests = JSON.parse(storedReqs);
+    } catch(err) {
+      console.warn("Storage access warning:", err);
+    }
 
     /* APP INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
@@ -1051,14 +1094,16 @@
       if (state.currentUser) {
         if (state.currentUser.role === 'pro') {
           showScreen('screen-pro-home');
-          document.getElementById('main-nav').style.display = 'none';
+          const nav = document.getElementById('main-nav');
+          if (nav) nav.style.display = 'none';
         } else {
           showScreen('screen-client-home');
           updateUserProfileUI();
         }
       } else {
         showScreen('screen-welcome');
-        document.getElementById('main-nav').style.display = 'none';
+        const nav = document.getElementById('main-nav');
+        if (nav) nav.style.display = 'none';
       }
     });
 
@@ -1068,17 +1113,18 @@
       const target = document.getElementById(screenId);
       if (target) {
         target.classList.add('active');
-        state.activeScreen = screenId;
         target.scrollTop = 0;
+        state.activeScreen = screenId;
       }
 
       // Hide or Show Nav
       const nav = document.getElementById('main-nav');
-      if (!nav) return;
-      if (['screen-welcome', 'screen-login', 'screen-reg-client', 'screen-reg-pro', 'screen-chat', 'screen-pro-home'].includes(screenId)) {
-        nav.style.display = 'none';
-      } else {
-        nav.style.display = 'flex';
+      if (nav) {
+        if (['screen-welcome', 'screen-login', 'screen-reg-client', 'screen-reg-pro', 'screen-chat', 'screen-pro-home'].includes(screenId)) {
+          nav.style.display = 'none';
+        } else {
+          nav.style.display = 'flex';
+        }
       }
     }
 
@@ -1091,8 +1137,10 @@
     /* ROLE SELECTION */
     function selectRole(role) {
       state.selectedRole = role;
-      document.getElementById('role-client-card').style.borderColor = role === 'client' ? 'var(--secondary)' : 'transparent';
-      document.getElementById('role-pro-card').style.borderColor = role === 'pro' ? 'var(--accent)' : 'transparent';
+      const cCard = document.getElementById('role-client-card');
+      const pCard = document.getElementById('role-pro-card');
+      if (cCard) cCard.style.borderColor = role === 'client' ? 'var(--secondary)' : 'transparent';
+      if (pCard) pCard.style.borderColor = role === 'pro' ? 'var(--accent)' : 'transparent';
     }
 
     function proceedRole() {
@@ -1105,11 +1153,15 @@
 
     /* AUTHENTICATION HANDLERS */
     function handleRegisterClient(e) {
-      e.preventDefault();
+      if(e) e.preventDefault();
+      const nameEl = document.getElementById('reg-c-name');
+      const phoneEl = document.getElementById('reg-c-phone');
+      const cityEl = document.getElementById('reg-c-city');
+      
       const user = {
-        name: document.getElementById('reg-c-name').value,
-        phone: document.getElementById('reg-c-phone').value,
-        city: document.getElementById('reg-c-city').value,
+        name: nameEl ? nameEl.value : "Mona Amrani",
+        phone: phoneEl ? phoneEl.value : "0661234567",
+        city: cityEl ? cityEl.value : "Casablanca",
         role: 'client'
       };
       saveUserSession(user);
@@ -1118,11 +1170,15 @@
     }
 
     function handleRegisterPro(e) {
-      e.preventDefault();
+      if(e) e.preventDefault();
+      const nameEl = document.getElementById('reg-p-name');
+      const phoneEl = document.getElementById('reg-p-phone');
+      const jobEl = document.getElementById('reg-p-job');
+
       const user = {
-        name: document.getElementById('reg-p-name').value,
-        phone: document.getElementById('reg-p-phone').value,
-        job: document.getElementById('reg-p-job').value,
+        name: nameEl ? nameEl.value : "Youssef El Amrani",
+        phone: phoneEl ? phoneEl.value : "0661234567",
+        job: jobEl ? jobEl.value : "Électricien",
         role: 'pro'
       };
       saveUserSession(user);
@@ -1131,10 +1187,13 @@
     }
 
     function handleLogin(e) {
-      e.preventDefault();
+      if(e) e.preventDefault();
+      const loginId = document.getElementById('login-id');
+      const val = loginId ? loginId.value : "0661234567";
+
       const user = {
         name: "Mona Amrani",
-        phone: document.getElementById('login-id').value,
+        phone: val,
         role: 'client'
       };
       saveUserSession(user);
@@ -1144,31 +1203,44 @@
 
     function saveUserSession(user) {
       state.currentUser = user;
-      try { localStorage.setItem('qrib_user', JSON.stringify(user)); } catch (error) {}
+      try {
+        localStorage.setItem('qrib_user', JSON.stringify(user));
+      } catch(err) {
+        console.warn("Could not save session:", err);
+      }
       updateUserProfileUI();
     }
 
     function logout() {
-      try { localStorage.removeItem('qrib_user'); } catch (error) {}
+      try {
+        localStorage.removeItem('qrib_user');
+      } catch(err) {
+        console.warn("Could not remove session:", err);
+      }
       state.currentUser = null;
       showScreen('screen-welcome');
-      showToast('Déconnecté');
+      showToast('Déconnecté avec succès');
     }
 
     function updateUserProfileUI() {
       if (!state.currentUser) return;
-      document.getElementById('profile-user-name').innerText = state.currentUser.name;
-      document.getElementById('profile-user-phone').innerText = state.currentUser.phone || "0661234567";
-      document.getElementById('profile-avatar-big').innerText = state.currentUser.name.charAt(0);
+      const nameEl = document.getElementById('profile-user-name');
+      const phoneEl = document.getElementById('profile-user-phone');
+      const avatarEl = document.getElementById('profile-avatar-big');
+      
+      if (nameEl) nameEl.innerText = state.currentUser.name;
+      if (phoneEl) phoneEl.innerText = state.currentUser.phone || "0661234567";
+      if (avatarEl) avatarEl.innerText = state.currentUser.name.charAt(0);
     }
 
     /* RENDER FUNCTIONS */
     function renderCategories() {
       const grid = document.getElementById('categories-grid');
+      if (!grid) return;
       grid.innerHTML = categoriesData.map(c => `
-        <div class="card" onclick="openNewRequest('${c.name}')" style="margin:0; text-align:center; padding:12px 6px; cursor:pointer;">
-          <div style="font-size:22px; margin-bottom:4px;">${c.icon}</div>
-          <div style="font-size:11px; font-weight:600; color:var(--text-main);">${c.name}</div>
+        <div class="card" onclick="openNewRequest('${c.name}')" style="margin:0; text-align:center; padding:12px 6px; cursor:pointer; touch-action:manipulation;">
+          <div style="font-size:22px; margin-bottom:4px; pointer-events:none;">${c.icon}</div>
+          <div style="font-size:11px; font-weight:600; color:var(--text-main); pointer-events:none;">${c.name}</div>
         </div>
       `).join('');
     }
@@ -1189,7 +1261,7 @@
               <div style="font-size:11px; color:var(--warning); font-weight:600;">⭐ ${p.rating} (${p.jobs} prestations)</div>
             </div>
           </div>
-          <button class="btn btn-secondary" style="width:auto; padding:6px 12px; font-size:12px;" onclick="openNewRequest('${p.job}')">Choisir</button>
+          <button type="button" class="btn btn-secondary" style="width:auto; padding:6px 12px; font-size:12px; min-height:38px;" onclick="openNewRequest('${p.job}')">Choisir</button>
         </div>
       `).join('');
 
@@ -1202,7 +1274,7 @@
               <div style="font-size:11px; color:var(--text-muted);">${p.job} • ⭐ ${p.rating}</div>
             </div>
           </div>
-          <button class="btn btn-outline" style="width:auto; padding:6px 10px; font-size:11px;" onclick="openNewRequest('${p.job}')">Demander</button>
+          <button type="button" class="btn btn-outline" style="width:auto; padding:6px 10px; font-size:11px; min-height:36px;" onclick="openNewRequest('${p.job}')">Demander</button>
         </div>
       `).join('');
 
@@ -1211,6 +1283,7 @@
 
     function renderRequestsList() {
       const container = document.getElementById('requests-list');
+      if (!container) return;
       if (state.requests.length === 0) {
         container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:13px; margin-top:40px;">Aucune demande pour le moment.</p>`;
         return;
@@ -1227,7 +1300,7 @@
           </div>
           <div style="margin-top:12px; border-top:1px solid var(--border); padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px; font-weight:600;">Pro: ${r.pro}</span>
-            <button class="btn btn-secondary" style="width:auto; padding:6px 12px; font-size:11px;" onclick="showScreen('screen-tracking')">Suivi en direct</button>
+            <button type="button" class="btn btn-secondary" style="width:auto; padding:6px 12px; font-size:11px; min-height:36px;" onclick="showScreen('screen-tracking')">Suivi en direct</button>
           </div>
         </div>
       `).join('');
@@ -1246,8 +1319,8 @@
           <h4 style="margin-top:6px;">Prise électrique défectueuse</h4>
           <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Maârif, Boulevard Massira • Client: Mona A.</p>
           <div class="grid-2">
-            <button class="btn btn-primary" onclick="acceptJobByPro(this)">Accepter la mission</button>
-            <button class="btn btn-outline" onclick="this.closest('.card').remove()">Refuser</button>
+            <button type="button" class="btn btn-primary" onclick="acceptJobByPro(this)">Accepter la mission</button>
+            <button type="button" class="btn btn-outline" onclick="this.closest('.card').remove()">Refuser</button>
           </div>
         </div>
       `;
@@ -1255,6 +1328,7 @@
 
     function renderNotifications() {
       const container = document.getElementById('notif-list-container');
+      if (!container) return;
       container.innerHTML = `
         <div class="card">
           <div style="font-weight:700; font-size:13px;">Proposition reçue !</div>
@@ -1264,31 +1338,39 @@
       `;
     }
 
-    /* ACTIONS & INTERACTION logic */
+    /* ACTIONS & INTERACTION LOGIC */
     function openNewRequest(category) {
-      document.getElementById('req-category').value = category;
+      const catEl = document.getElementById('req-category');
+      if (catEl) catEl.value = category;
       showScreen('screen-create-request');
     }
 
     function handleCreateRequest(e) {
-      e.preventDefault();
+      if(e) e.preventDefault();
+      const titleEl = document.getElementById('req-title');
+      const catEl = document.getElementById('req-category');
+
       const newReq = {
         id: Date.now(),
-        title: document.getElementById('req-title').value,
-        category: document.getElementById('req-category').value,
+        title: titleEl && titleEl.value ? titleEl.value : "Demande de service",
+        category: catEl && catEl.value ? catEl.value : "Général",
         status: "En recherche",
         pro: "Attribution en cours",
         date: "Aujourd'hui"
       };
 
       state.requests.unshift(newReq);
-      try { localStorage.setItem('qrib_requests', JSON.stringify(state.requests)); } catch (error) {}
+      try {
+        localStorage.setItem('qrib_requests', JSON.stringify(state.requests));
+      } catch(err) {
+        console.warn("Storage warning:", err);
+      }
       renderRequestsList();
 
       showToast("Demande publiée ! Recherche d'artisan...");
       setTimeout(() => {
         showScreen('screen-tracking');
-      }, 1000);
+      }, 800);
     }
 
     function useCurrentLocation() {
@@ -1297,15 +1379,20 @@
           () => showToast("Position actualisée"),
           () => showToast("Position définie sur Casablanca")
         );
+      } else {
+        showToast("Position définie sur Casablanca");
       }
     }
 
     function sendChatMessage() {
       const input = document.getElementById('chat-input');
+      if (!input) return;
       const val = input.value.trim();
       if (!val) return;
 
       const chatContainer = document.getElementById('chat-messages');
+      if (!chatContainer) return;
+
       chatContainer.innerHTML += `
         <div style="align-self:flex-end; background:var(--primary); color:white; padding:8px 12px; border-radius:12px 12px 0 12px; max-width:80%; font-size:13px;">
           ${val}
@@ -1313,7 +1400,6 @@
       `;
       input.value = '';
 
-      // Auto reply simulation
       setTimeout(() => {
         chatContainer.innerHTML += `
           <div style="align-self:flex-start; background:white; color:var(--text-main); padding:8px 12px; border-radius:12px 12px 12px 0; max-width:80%; font-size:13px; box-shadow:var(--shadow-sm);">
@@ -1321,13 +1407,25 @@
           </div>
         `;
         chatContainer.scrollTop = chatContainer.scrollHeight;
-      }, 1200);
+      }, 1000);
 
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
     function completeJobSim() {
-      document.getElementById('modal-rating').classList.add('active');
+      const modal = document.getElementById('modal-rating');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('active');
+    }
+
+    function closeModalOnOverlay(e, modalId) {
+      if (e.target.id === modalId) {
+        closeModal(modalId);
+      }
     }
 
     function setRating(stars) {
@@ -1335,19 +1433,22 @@
     }
 
     function submitRating() {
-      document.getElementById('modal-rating').classList.remove('active');
+      closeModal('modal-rating');
       showToast("Prestation clôturée avec succès");
       showScreen('screen-client-home');
     }
 
     function acceptJobByPro(btn) {
-      btn.innerText = "Mission acceptée ✓";
-      btn.style.background = "var(--success)";
+      if (btn) {
+        btn.innerText = "Mission acceptée ✓";
+        btn.style.background = "var(--success)";
+      }
       showToast("Mission ajoutée à votre agenda");
     }
 
     function toggleProOnlineStatus() {
       const btn = document.getElementById('pro-status-btn');
+      if (!btn) return;
       if (btn.innerText === "En ligne") {
         btn.innerText = "Hors ligne";
         btn.style.background = "var(--text-muted)";
@@ -1358,13 +1459,17 @@
     }
 
     function filterServices() {
-      const query = document.getElementById('home-search').value.toLowerCase();
+      const searchEl = document.getElementById('home-search');
+      if (!searchEl) return;
+      const query = searchEl.value.toLowerCase();
       const filtered = categoriesData.filter(c => c.name.toLowerCase().includes(query));
       const grid = document.getElementById('categories-grid');
+      if (!grid) return;
+
       grid.innerHTML = filtered.map(c => `
-        <div class="card" onclick="openNewRequest('${c.name}')" style="margin:0; text-align:center; padding:12px 6px; cursor:pointer;">
-          <div style="font-size:22px; margin-bottom:4px;">${c.icon}</div>
-          <div style="font-size:11px; font-weight:600;">${c.name}</div>
+        <div class="card" onclick="openNewRequest('${c.name}')" style="margin:0; text-align:center; padding:12px 6px; cursor:pointer; touch-action:manipulation;">
+          <div style="font-size:22px; margin-bottom:4px; pointer-events:none;">${c.icon}</div>
+          <div style="font-size:11px; font-weight:600; pointer-events:none;">${c.name}</div>
         </div>
       `).join('');
     }
@@ -1375,9 +1480,12 @@
 
     function showToast(msg) {
       const t = document.getElementById('toast');
-      document.getElementById('toast-text').innerText = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      const text = document.getElementById('toast-text');
+      if (text) text.innerText = msg;
+      if (t) {
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+      }
     }
   </script>
 </body>
